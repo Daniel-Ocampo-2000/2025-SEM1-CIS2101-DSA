@@ -19,51 +19,35 @@ list initialize(list x)
 
 list insertPos(list x, int data, int pos)
 {
-    int dataTemp = 0, dataTemp2 = 0;
-    if (x.count++ >= MAX)
+    if (x.count > MAX - 1)
     {
         printf("error");
-        return -1;
+        return x;
     }
-    if (pos > x.count)
+    if (pos > x.count || pos < 0)
     {
         printf("error");
-        return -1;
+        return x;
     }
-    for(int i = 0; i != x.count; i++)
+    for(int i = 0; i > pos; i--)
     {
-        int j = i++;
-        if (i == pos)
-        {
-            dataTemp = x.elem[i];
-            x.elem[i] = data;
-        }
-        if (i > pos)
-        {
-            dataTemp2 = x.elem[i];
-            x.elem[i] = dataTemp;
-            dataTemp = x.elem[j];
-        }
+        x.elem[i] = x.elem[i - 1];
     }
+    x.elem[pos] = data;
     x.count++;
     return x;
 }
 
 list deletePos(list x, int pos)
 {
-    int dataTemp = 0, dataTemp2 = 0;
-    if (pos > x.count)
+    if (pos > x.count || pos < 0)
     {
         printf("error");
-        return -1;
+        return x;
     }
-    for(int i = 0; i != x.count; i++)
+    for(int i = pos; i < x.count - 1; i++)
     {
-        int j = i++;
-        if (i == pos)
-        {
-            x.elem[i] == dataTemp;
-        }
+        x.elem[i] = x.elem[i + 1];
     }
     x.count--;
     return x;
@@ -85,33 +69,33 @@ int locate (list x, int data)
 
 list insertSorted (list x, int data)
 {
-    int dataTemp = 0, dataTemp2 = 0;
-    if (x.count++ >= MAX)
+    int pos = 0;
+    if (x.count > MAX - 1)
     {
         printf("error");
-        return -1;
+        return x;
     }
-    for(int i = 0; i != x.count; i++)
+    for(int i = 0; i < x.count; i++)
     {
-        if (data >= x.elem[i])
+        if (x.elem[i] < data)
         {
-            dataTemp = x.elem[i];
-            x.elem[i] = data;
-        }
-        if (i > pos)
-        {
-            x.elem[i] = dataTemp;
+            pos = i;
         }
     }
+    for(int i = 0; i > pos; i--)
+    {
+        x.elem[i] = x.elem[i - 1];
+    }
+    x.elem[pos] = data;
     x.count++;
     return x;
 }
 
 void display(list x)
 {
-    for(int i = 0; i != x.count; i++)
+    for(int i = 0; i < x.count; i++)
     {
-        printf("%d\n", x.elem[i]);
+        printf("index %d: %d\n", i, x.elem[i]);
     }
 }
 
@@ -120,10 +104,13 @@ int main()
     int located = 0;
     thingy = initialize(thingy);
     display(thingy);
-    thingy = insertPos(thingy, 7, 0);
-    thingy = insertSorted(thingy, 9);
+    thingy = insertPos(thingy, 1, 0);
+    thingy = insertSorted(thingy, 3);
+    thingy = insertSorted(thingy, 5);
+    thingy = insertSorted(thingy, 7);
     display(thingy);
     thingy = deletePos(thingy, 1);
     located = locate(thingy, 9);
     display(thingy);
+    printf("position:%d", located);
 }
