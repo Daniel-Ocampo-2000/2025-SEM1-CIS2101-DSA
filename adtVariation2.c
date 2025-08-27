@@ -9,72 +9,53 @@ typedef struct
     int count;
 } list;
 
-list thingy;
+list* thingy;
 
-list initialize(list x)
+void initialize(list* x)
 {
-    x.count = 0;
-    return x;
+    x->count = 0;
 }
 
-list insertPos(list x, int data, int pos)
+void insertPos(list* x, int data, int pos)
 {
-    int dataTemp = 0, dataTemp2 = 0;
-    if (x.count++ >= MAX)
+    if (x->count > MAX - 1)
     {
         printf("error");
-        return -1;
+        return;
     }
-    if (pos > x.count)
+    if (pos > x->count || pos < 0)
     {
         printf("error");
-        return -1;
+        return;
     }
-    for(int i = 0; i != x.count; i++)
+    for(int i = 0; i > pos; i--) //crazy move actually i never thought about moving things in arrays like this
     {
-        int j = i++;
-        if (i == pos)
-        {
-            dataTemp = x.elem[i];
-            x.elem[i] = data;
-        }
-        if (i > pos)
-        {
-            dataTemp2 = x.elem[i];
-            x.elem[i] = dataTemp;
-            dataTemp = x.elem[j];
-        }
+        x->elem[i] = x->elem[i - 1];
     }
-    x.count++;
-    return x;
+    x->elem[pos] = data;
+    x->count++;
 }
 
-list deletePos(list x, int pos)
+void deletePos(list* x, int pos)
 {
-    int dataTemp = 0, dataTemp2 = 0;
-    if (pos > x.count)
+    if (pos > x->count || pos < 0)
     {
         printf("error");
-        return -1;
+        return;
     }
-    for(int i = 0; i != x.count; i++)
+    for(int i = pos; i < x->count - 1; i++)
     {
-        int j = i++;
-        if (i == pos)
-        {
-            x.elem[i] == dataTemp;
-        }
+        x->elem[i] = x->elem[i + 1];
     }
-    x.count--;
-    return x;
+    x->count--;
 }
 
-int locate (list x, int data)
+int locate (list* x, int data)
 {
     int returnVal = -1;
-    for(int i = 0; i != x.count; i++)
+    for(int i = 0; i != x->count; i++)
     {
-        if (x.elem[i] == data)
+        if (x->elem[i] == data)
         {
             returnVal = i;
             break;
@@ -83,47 +64,58 @@ int locate (list x, int data)
     return returnVal;
 }
 
-list insertSorted (list x, int data)
+void insertSorted (list* x, int data)
 {
-    int dataTemp = 0, dataTemp2 = 0;
-    if (x.count++ >= MAX)
+    int pos = 0;
+    if (x->count > MAX - 1)
     {
         printf("error");
-        return -1;
+        return;
     }
-    for(int i = 0; i != x.count; i++)
+    for(int i = 0; i < x->count; i++)
     {
-        if (data >= x.elem[i])
+        if (x->elem[i] < data)
         {
-            dataTemp = x.elem[i];
-            x.elem[i] = data;
-        }
-        if (i > pos)
-        {
-            x.elem[i] = dataTemp;
+            pos = i;
         }
     }
-    x.count++;
-    return x;
+    for(int i = 0; i > pos; i--)
+    {
+        x->elem[i] = x->elem[i - 1];
+    }
+    x->elem[pos] = data;
+    x->count++;
 }
 
-void display(list x)
+void display(list* x)
 {
-    for(int i = 0; i != x.count; i++)
+    for(int i = 0; i < x->count; i++)
     {
-        printf("%d\n", x.elem[i]);
+        printf("index %d: %d\n", i, x->elem[i]);
     }
+}
+
+void makeNULL(list* x)
+{
+    free(x);
 }
 
 int main()
 {
     int located = 0;
-    thingy = initialize(thingy);
+    thingy = (list*)malloc(sizeof(list));
+    initialize(thingy);
     display(thingy);
-    thingy = insertPos(thingy, 7, 0);
-    thingy = insertSorted(thingy, 9);
+    insertPos(thingy, 1, 0);
+    insertPos(thingy, 2, 1);
+    insertPos(thingy, 3, 1);
+    insertPos(thingy, 4, 1);
+    insertSorted(thingy, 3);
+    insertSorted(thingy, 5);
+    insertSorted(thingy, 7);
     display(thingy);
-    thingy = deletePos(thingy, 1);
-    located = locate(thingy, 9);
+    deletePos(thingy, 1);
+    locate(thingy, 9);
     display(thingy);
+    printf("position:%d", located);
 }
