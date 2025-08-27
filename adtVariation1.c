@@ -29,7 +29,7 @@ list insertPos(list x, int data, int pos)
         printf("error");
         return x;
     }
-    for(int i = 0; i > pos; i--)
+    for(int i = x.count; i > pos; i--)
     {
         x.elem[i] = x.elem[i - 1];
     }
@@ -114,3 +114,4 @@ int main()
     display(thingy);
     printf("position:%d", located);
 }
+
