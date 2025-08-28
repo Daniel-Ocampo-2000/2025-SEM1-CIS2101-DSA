@@ -115,9 +115,10 @@ int main()
     insertSorted(thingy, 7);
     display(thingy);
     deletePos(thingy, 1);
-    locate(thingy, 9);
+    located = locate(thingy, 9);
     display(thingy);
     printf("position:%d", located);
 }
+
 
 
