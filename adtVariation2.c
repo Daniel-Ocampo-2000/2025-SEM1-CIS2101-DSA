@@ -28,7 +28,7 @@ void insertPos(list* x, int data, int pos)
         printf("error");
         return;
     }
-    for(int i = 0; i > pos; i--) //crazy move actually i never thought about moving things in arrays like this
+    for(int i = count; i > pos; i--)
     {
         x->elem[i] = x->elem[i - 1];
     }
@@ -119,3 +119,4 @@ int main()
     display(thingy);
     printf("position:%d", located);
 }
+
