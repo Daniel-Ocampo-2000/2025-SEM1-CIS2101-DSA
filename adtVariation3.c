@@ -106,7 +106,6 @@ void display(list x)
 int main()
 {
     int located = 0;
-    thingy = (list*)malloc(sizeof(list));
     list = initialize(thingy);
     display(thingy);
     list = insertPos(thingy, 1, 0);
@@ -122,3 +121,4 @@ int main()
     display(thingy);
     printf("position:%d", located);
 }
+
