@@ -82,7 +82,7 @@ list insertSorted (list x, int data)
             pos = i;
         }
     }
-    for(int i = 0; i > pos; i--)
+    for(int i = count; i > pos; i--)
     {
         x.elem[i] = x.elem[i - 1];
     }
@@ -114,4 +114,5 @@ int main()
     display(thingy);
     printf("position:%d", located);
 }
+
 
