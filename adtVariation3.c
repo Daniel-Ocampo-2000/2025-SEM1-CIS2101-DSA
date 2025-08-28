@@ -107,18 +107,18 @@ int main()
 {
     int located = 0;
     thingy = (list*)malloc(sizeof(list));
-    initialize(thingy);
+    list = initialize(thingy);
     display(thingy);
-    insertPos(thingy, 1, 0);
-    insertPos(thingy, 2, 1);
-    insertPos(thingy, 3, 1);
-    insertPos(thingy, 4, 1);
-    insertSorted(thingy, 3);
-    insertSorted(thingy, 5);
-    insertSorted(thingy, 7);
+    list = insertPos(thingy, 1, 0);
+    list = insertPos(thingy, 2, 1);
+    list = insertPos(thingy, 3, 1);
+    list = insertPos(thingy, 4, 1);
+    list = insertSorted(thingy, 3);
+    list = insertSorted(thingy, 5);
+    list = insertSorted(thingy, 7);
     display(thingy);
-    deletePos(thingy, 1);
-    locate(thingy, 9);
+    list = deletePos(thingy, 1);
+    located = locate(thingy, 9);
     display(thingy);
     printf("position:%d", located);
 }
