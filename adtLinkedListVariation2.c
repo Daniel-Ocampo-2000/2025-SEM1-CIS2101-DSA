@@ -50,7 +50,7 @@ void insertPos(list *list, int x, int pos)
 {
     node* nodeNew = create(x);
     node *current = list->head;
-    
+
 }
 
 int retrieve(list *list, int x)
@@ -108,12 +108,27 @@ void display(list *list)
     }
 }
 
-list initialize()
+list initialize(list *list)
 {
-    
+    for (int i = 0; i < LENGTH; i++)
+    {
+        node *current = list->*head;
+        current->data =  -1;
+        current = current->next;
+    }
+    list->count = 0;
 }
 
 int main()
 {
-    
+    list listNew;
+    initialize(listNew);
+    insertFirst(listNew, 1);
+    insertFirst(listNew, 2);
+    insertFirst(listNew, 3);
+    insertFirst(listNew, 4);
+    insertFirst(listNew, 5);
+    insertFirst(listNew, 6);
+    insertFirst(listNew, 7);
+    display(listNew);
 }
